@@ -360,7 +360,7 @@ TTL: 300`
               {active3dTab === 'threads' && (
                 <>
                   {/* Left Column: List */}
-                  <div className="md:col-span-5 space-y-2 border-r border-gray-200 dark:border-gray-200 pr-4">
+                  <div className="md:col-span-5 space-y-2 border-r-0 md:border-r border-gray-200 dark:border-gray-200 pr-0 md:pr-4 pb-4 md:pb-0">
                     <div className="text-[10px] text-indigo-500 uppercase font-black tracking-wider">Active Stream</div>
                     {[
                       { user: 'Sarah Jenkins', msg: 'HMAC validation failing on AWS', status: 'ai_answering' },
@@ -469,7 +469,7 @@ TTL: 300`
             <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">
               Developer Quick-Access Accounts (Ready to Test)
             </h4>
-            <div className="grid grid-cols-3 gap-3 text-[11px]">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px]">
               <div 
                 onClick={() => { login('customer@example.com', 'password'); setView('customer'); }}
                 className="rounded-xl bg-white p-2.5 shadow-3d-sm hover:shadow-3d-lg dark:bg-[#111827] border dark:border-slate-800/80 hover:-translate-y-1 hover:border-emerald-500/50 cursor-pointer transition-all duration-205 md:duration-150"
@@ -526,7 +526,7 @@ TTL: 300`
                 >
                   <div>
                     <h4 className="font-black text-xs text-gray-900 dark:text-white">{scenarios[key].title}</h4>
-                    <span className="text-[10px] text-gray-400 font-mono mt-0.5 block truncate max-w-[210px]sm:max-w-xs">
+                    <span className="text-[10px] text-gray-400 font-mono mt-0.5 block truncate max-w-[210px] sm:max-w-xs">
                       {scenarios[key].tickettext}
                     </span>
                   </div>
@@ -537,12 +537,12 @@ TTL: 300`
           </div>
 
           {/* Right Terminal block */}
-          <div className="md:col-span-7 flex flex-col rounded-3xl border border-gray-200 bg-white shadow-xl overflow-hidden dark:border-gray-200 dark:bg-white text-slate-900">
+          <div className="md:col-span-7 flex flex-col rounded-3xl border border-gray-205 bg-white shadow-xl overflow-hidden dark:border-slate-800 dark:bg-slate-950 w-full min-w-0 text-slate-900 dark:text-slate-105">
             {/* Terminal menu rail */}
-            <div className="border-b px-5 py-4 border-gray-200 bg-slate-50 dark:bg-slate-50 flex items-center justify-between">
+            <div className="border-b px-5 py-4 border-gray-205 bg-slate-50 dark:bg-slate-900/40 flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <Code className="h-4 w-4 text-[#8b5cf6]" />
-                <span className="font-semibold text-xs text-slate-900 dark:text-slate-900">InterBot Console Code Simulator</span>
+                <span className="font-semibold text-xs text-slate-900 dark:text-slate-100">InterBot Console Code Simulator</span>
               </div>
               <span className="text-[9px] font-mono font-black text-indigo-500 bg-indigo-50 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
                 Live Resolution
@@ -552,12 +552,12 @@ TTL: 300`
             {/* Simulated Live Action Window */}
             <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
               {/* Ticket payload input box */}
-              <div className="rounded-2xl border border-dashed border-gray-250 p-4 bg-slate-50 dark:bg-[#f8fafc]">
+              <div className="rounded-2xl border border-dashed border-gray-250 dark:border-slate-800 p-4 bg-slate-50 dark:bg-[#0c1221]">
                 <div className="flex items-center gap-2 mb-1.5">
                   <div className="h-2 w-2 rounded-full bg-indigo-500" />
                   <span className="text-[10px] text-indigo-500 dark:text-indigo-400 font-bold uppercase tracking-wider">Simulated Ticket Payload</span>
                 </div>
-                <p className="text-[11px] leading-relaxed italic text-slate-700 dark:text-slate-700 font-medium font-sans">
+                <p className="text-[11px] leading-relaxed italic text-slate-705 dark:text-slate-300 font-medium font-sans">
                   {scenarios[activeScenario].tickettext}
                 </p>
               </div>
@@ -589,17 +589,17 @@ TTL: 300`
               {/* Bot solution block */}
               {simStep === 'resolved' ? (
                 <div className="space-y-3 pt-2 text-left">
-                  <div className="border border-emerald-200 rounded-2xl bg-emerald-50/40 p-4 flex gap-3 text-[11px]">
-                    <Sparkles className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5 animate-pulse" />
+                  <div className="border border-emerald-250 dark:border-emerald-800/50 rounded-2xl bg-emerald-50/40 dark:bg-emerald-950/20 p-4 flex gap-3 text-[11px]">
+                    <Sparkles className="h-4 w-4 text-emerald-555 dark:text-emerald-400 shrink-0 mt-0.5 animate-pulse" />
                     <div>
-                      <span className="font-extrabold text-emerald-700 dark:text-emerald-700 block text-xs">Autonomous Diagnosis Solution</span>
-                      <p className="text-slate-700 dark:text-slate-700 mt-1 leading-relaxed">
+                      <span className="font-extrabold text-emerald-700 dark:text-emerald-400 block text-xs">Autonomous Diagnosis Solution</span>
+                      <p className="text-slate-705 dark:text-slate-300 mt-1 leading-relaxed">
                         {scenarios[activeScenario].aiDecision}
                       </p>
                     </div>
                   </div>
 
-                  <pre className="p-3.5 rounded-2xl bg-[#090d16] text-[10.5px] text-[#22c55e] font-mono border border-slate-800 overflow-x-auto text-left leading-relaxed">
+                  <pre className="p-3.5 rounded-2xl bg-[#090d16] text-[10.5px] text-[#22c55e] font-mono border border-slate-800 w-full max-w-full overflow-x-auto text-left leading-relaxed whitespace-pre-wrap break-all sm:whitespace-pre sm:break-normal">
                     {scenarios[activeScenario].code}
                   </pre>
                 </div>
@@ -965,15 +965,7 @@ TTL: 300`
               <p className="text-[11px] leading-relaxed text-gray-550 mr-4">
                 The world's first support automation command center natively powered by Gemini live diagnostics.
               </p>
-              <div className="flex items-center gap-2.5 pt-1">
-                <button 
-                  onClick={() => window.open('https://github.com', '_blank', 'noopener,noreferrer')}
-                  className="p-2 rounded-xl bg-gray-50 hover:bg-gray-100 border dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-850 hover:scale-105 active:scale-95 transition cursor-pointer"
-                  title="Explore Github Source code repository"
-                  aria-label="Explore Github Source code repository"
-                >
-                  <Github className="h-4 w-4 text-gray-500 dark:text-slate-400" />
-                </button>
+              <div className="flex items-center gap-1.5 pt-1">
                 <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                 <span className="text-[9.5px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">100% Client Managed</span>
               </div>

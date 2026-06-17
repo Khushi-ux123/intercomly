@@ -40,6 +40,11 @@ export interface Ticket {
   activities?: TicketActivity[];
   createdAt: string;
   updatedAt: string;
+  category?: string;
+  sentiment?: string;
+  firstResponseMinutes?: number;
+  resolutionMinutes?: number;
+  tags?: string[];
 }
 
 export interface Conversation {
@@ -68,6 +73,7 @@ export interface Message {
   mediaUrl?: string;
   mediaType?: 'image' | 'file';
   isRead: boolean;
+  isBot?: boolean;
   sentiment?: 'positive' | 'neutral' | 'negative';
   createdAt: string;
 }

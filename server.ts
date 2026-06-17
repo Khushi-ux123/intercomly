@@ -4,10 +4,14 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { createServer as createViteServer } from 'vite';
 import apiRoutes from './src/server/routes';
+import dbStore from './src/server/db.ts';
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+
+  // Initialize PostgreSQL database layer
+  await dbStore.init();
 
   // Global Middlewares
   app.use(express.json());

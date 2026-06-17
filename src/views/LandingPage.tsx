@@ -463,40 +463,7 @@ TTL: 300`
           </div>
         </div>
 
-        {/* Workspace Credentials Quick Card */}
-        {!user && (
-          <div className="mt-12 rounded-2xl border border-dashed border-gray-200 bg-white/60 dark:bg-slate-900/40 dark:border-slate-800 p-5 text-center max-w-xl w-full relative z-10 backdrop-blur-md shadow-3d-sm animate-3d-float-slow">
-            <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">
-              Developer Quick-Access Accounts (Ready to Test)
-            </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px]">
-              <div 
-                onClick={() => { login('customer@example.com', 'password'); setView('customer'); }}
-                className="rounded-xl bg-white p-2.5 shadow-3d-sm hover:shadow-3d-lg dark:bg-[#111827] border dark:border-slate-800/80 hover:-translate-y-1 hover:border-emerald-500/50 cursor-pointer transition-all duration-205 md:duration-150"
-              >
-                <span className="font-extrabold text-emerald-650 block mb-0.5">Customer</span>
-                <span className="text-gray-550 block truncate">customer@example.com</span>
-                <span className="font-mono text-gray-400 block mt-1 bg-slate-100 dark:bg-slate-850 py-0.5 rounded">password</span>
-              </div>
-              <div 
-                onClick={() => { login('agent@example.com', 'password'); setView('agent'); }}
-                className="rounded-xl bg-white p-2.5 shadow-3d-sm hover:shadow-3d-lg dark:bg-[#111827] border dark:border-slate-800/80 hover:-translate-y-1 hover:border-indigo-650 cursor-pointer transition-all duration-205 md:duration-150"
-              >
-                <span className="font-extrabold text-indigo-650 block mb-0.5">Support Agent</span>
-                <span className="text-gray-550 block truncate">agent@example.com</span>
-                <span className="font-mono text-gray-400 block mt-1 bg-slate-100 dark:bg-slate-850 py-0.5 rounded">password</span>
-              </div>
-              <div 
-                onClick={() => { login('admin@example.com', 'password'); setView('admin'); }}
-                className="rounded-xl bg-white p-2.5 shadow-3d-sm hover:shadow-3d-lg dark:bg-[#111827] border dark:border-slate-800/80 hover:-translate-y-1 hover:border-purple-605 block mb-0.5 cursor-pointer transition-all duration-205 md:duration-150"
-              >
-                <span className="font-extrabold text-purple-600 block mb-0.5">Admin Ops</span>
-                <span className="text-gray-550 block truncate">admin@example.com</span>
-                <span className="font-mono text-gray-400 block mt-1 bg-slate-100 dark:bg-slate-850 py-0.5 rounded">password</span>
-              </div>
-            </div>
-          </div>
-        )}
+
       </section>
 
       {/* ----------------- SECTOR 2: INTERACTIVE CO-PILOT SIMULATOR TERMINAL ----------------- */}

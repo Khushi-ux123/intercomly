@@ -877,11 +877,11 @@ class DiskDatabase {
       email: newUser.email,
       name: newUser.name,
       role: newUser.role,
-      avatar: newUser.avatar,
-      status: newUser.status,
-      company: newUser.company,
-      phone: newUser.phone,
-      bio: newUser.bio,
+      avatar: newUser.avatar || null,
+      status: newUser.status || null,
+      company: newUser.company || null,
+      phone: newUser.phone || null,
+      bio: newUser.bio || null,
       createdAt: newUser.createdAt,
     }).then(() => {
       return db.insert(schema.passwords).values({

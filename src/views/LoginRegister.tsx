@@ -6,14 +6,11 @@ import {
   User, 
   ArrowRight, 
   ShieldAlert, 
-  Key,
-  Database,
   Layers
 } from 'lucide-react';
-import { motion } from 'motion/react';
 
 export const LoginRegister: React.FC = () => {
-  const { login, register, activeView, setView, isLoading } = useApp();
+  const { login, register, setView, isLoading } = useApp();
   const [isLogin, setIsLogin] = useState(true);
   
   // Form fields
@@ -38,20 +35,8 @@ export const LoginRegister: React.FC = () => {
       } else {
         await register(name, email, password, role);
       }
-    } catch (e: any) {
-      setErrorMsg(e.message || 'API processing failed, check server logs.');
-    }
-  };
-
-  // Predefined quick logins generator
-  const triggerQuickLogin = async (e: string, p: string) => {
-    setErrorMsg('');
-    setEmail(e);
-    setPassword(p);
-    try {
-      await login(e, p);
     } catch (err: any) {
-      setErrorMsg(err.message || 'Quick login failed');
+      setErrorMsg(err.message || 'API processing failed, check server logs.');
     }
   };
 
@@ -60,7 +45,7 @@ export const LoginRegister: React.FC = () => {
       {/* Absolute Header Logo redirection */}
       <button 
         onClick={() => setView('landing')}
-        className="absolute top-6 left-6 flex items-center gap-2 "
+        className="absolute top-6 left-6 flex items-center gap-2"
       >
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-500 text-white">
           <Layers className="h-4 w-4" />
@@ -198,62 +183,9 @@ export const LoginRegister: React.FC = () => {
             <ArrowRight className="h-4 w-4" />
           </button>
         </form>
-
-        {/* Demo Fast Sandbox Login Shortcuts (Admin, Agent, Customer) */}
-        {isLogin && (
-          <div className="mt-8 border-t border-gray-150 dark:border-slate-800 pt-6">
-            <div className="mb-3 flex items-center justify-center gap-1 text-[11px] font-bold text-gray-400 uppercase tracking-widest">
-              <Database className="h-3.5 w-3.5 text-sky-500" />
-              <span>Developer Quick Logs (Single-Click)</span>
-            </div>
-            
-            <div className="flex flex-col gap-2">
-              <button
-                onClick={() => triggerQuickLogin('customer@example.com', 'password')}
-                className="flex items-center justify-between rounded-xl border border-gray-100 bg-gray-50/50 p-2.5 text-left hover:bg-gray-50 dark:border-slate-800 dark:bg-[#111827]"
-              >
-                <div className="flex items-center gap-2.5">
-                  <span className="flex h-5 w-5 items-center justify-center rounded bg-emerald-100 text-[10px] font-bold text-emerald-700">C</span>
-                  <div className="text-[10px] leading-tight">
-                    <span className="font-bold text-gray-900 dark:text-white block">Sarah Jenkins (Customer)</span>
-                    <span className="text-gray-400">customer@example.com</span>
-                  </div>
-                </div>
-                <Key className="h-3.5 w-3.5 text-gray-300" />
-              </button>
-
-              <button
-                onClick={() => triggerQuickLogin('agent@example.com', 'password')}
-                className="flex items-center justify-between rounded-xl border border-gray-100 bg-gray-50/50 p-2.5 text-left hover:bg-gray-50 dark:border-slate-800 dark:bg-[#111827]"
-              >
-                <div className="flex items-center gap-2.5">
-                  <span className="flex h-5 w-5 items-center justify-center rounded bg-indigo-100 text-[10px] font-bold text-indigo-700">A</span>
-                  <div className="text-[10px] leading-tight">
-                    <span className="font-bold text-gray-900 dark:text-white block">Michael Chen (Support Agent)</span>
-                    <span className="text-gray-400">agent@example.com</span>
-                  </div>
-                </div>
-                <Key className="h-3.5 w-3.5 text-gray-300" />
-              </button>
-
-              <button
-                onClick={() => triggerQuickLogin('admin@example.com', 'password')}
-                className="flex items-center justify-between rounded-xl border border-gray-100 bg-gray-50/50 p-2.5 text-left hover:bg-gray-50 dark:border-slate-800 dark:bg-[#111827]"
-              >
-                <div className="flex items-center gap-2.5">
-                  <span className="flex h-5 w-5 items-center justify-center rounded bg-purple-100 text-[10px] font-bold text-purple-700">AD</span>
-                  <div className="text-[10px] leading-tight">
-                    <span className="font-bold text-gray-900 dark:text-white block">Sophia Carter (Admin Operations)</span>
-                    <span className="text-gray-400">admin@example.com</span>
-                  </div>
-                </div>
-                <Key className="h-3.5 w-3.5 text-gray-300" />
-              </button>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
 };
+
 export default LoginRegister;

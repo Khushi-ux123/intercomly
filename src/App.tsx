@@ -42,6 +42,7 @@ function DashboardSwitch() {
 
 function WorkspaceContainer() {
   const { user, activeView, tourRun, stopTour } = useApp();
+  const [isShrunk, setIsShrunk] = React.useState(false);
 
   const isPublicPage = activeView === 'landing' || activeView === 'login' || activeView === 'register';
 
@@ -58,10 +59,10 @@ function WorkspaceContainer() {
       <OnboardingTour run={tourRun} onClose={stopTour} />
 
       {/* SaaS Sidebar navigation panel */}
-      <Sidebar />
+      <Sidebar isShrunk={isShrunk} setIsShrunk={setIsShrunk} />
 
       {/* Main viewport area */}
-      <div className="flex-1 md:pl-64 flex flex-col min-w-0">
+      <div className={`flex-1 ${isShrunk ? 'md:pl-20' : 'md:pl-64'} flex flex-col min-w-0 transition-all duration-300`}>
         <SaaSHeader />
         
         <main className="flex-1 overflow-x-hidden">

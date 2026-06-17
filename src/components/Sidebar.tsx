@@ -144,22 +144,6 @@ export const Sidebar: React.FC = () => {
 
       {/* Downer Section */}
       <div className="flex flex-col gap-3 p-4">
-        {/* Support Co-Pilot Assistant Banner */}
-        <div className="rounded-xl bg-gradient-to-tr from-sky-900 via-indigo-950 to-slate-950 p-4 text-white shadow-xl">
-          <div className="mb-2 flex items-center gap-1.5">
-            <Sparkles className="h-4 w-4 text-amber-400 animate-spin" />
-            <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
-              InterBot Active
-            </span>
-          </div>
-          <h3 className="text-xs font-semibold text-slate-100 leading-snug">
-            Equipped with Gemini 3.5 AI Super Intelligence
-          </h3>
-          <p className="mt-1 text-[10px] text-slate-300">
-            Automates support replies and analyzes tickets in milliseconds.
-          </p>
-        </div>
-
         {/* Log Out Option */}
         <button
           onClick={logout}

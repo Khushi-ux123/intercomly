@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import { User, Ticket, Conversation, Message, Notification, ServiceMetrics, TicketActivity } from '../types';
 import { db } from '../db/index.ts';
 import * as schema from '../db/schema.ts';
-import { eq } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 
 // Simple password hashing algorithm using Node's crypto
 export function hashPassword(password: string): string {
@@ -56,6 +56,111 @@ class DiskDatabase {
 
       console.log('Initializing relational database layer with PostgreSQL (Drizzle)...');
       
+      // Auto-provision tables if they do not exist (e.g., custom Railway deployment first booted)
+      try {
+        console.log('Verifying PostgreSQL schema tables exist...');
+        await db.execute(sql`
+          CREATE TABLE IF NOT EXISTS users (
+            id TEXT PRIMARY KEY,
+            email TEXT NOT NULL UNIQUE,
+            name TEXT NOT NULL,
+            role TEXT NOT NULL,
+            avatar TEXT,
+            status TEXT DEFAULT 'offline',
+            company TEXT,
+            phone TEXT,
+            bio TEXT,
+            created_at TEXT NOT NULL
+          );
+        `);
+        await db.execute(sql`
+          CREATE TABLE IF NOT EXISTS passwords (
+            user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+            password_hash TEXT NOT NULL
+          );
+        `);
+        await db.execute(sql`
+          CREATE TABLE IF NOT EXISTS tickets (
+            id TEXT PRIMARY KEY,
+            title TEXT NOT NULL,
+            description TEXT NOT NULL,
+            customer_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            customer_name TEXT NOT NULL,
+            customer_email TEXT,
+            agent_id TEXT REFERENCES users(id) ON DELETE SET NULL,
+            agent_name TEXT,
+            status TEXT NOT NULL,
+            priority TEXT NOT NULL,
+            created_at TEXT NOT NULL,
+            updated_at TEXT,
+            category TEXT,
+            sentiment TEXT,
+            first_response_minutes INTEGER,
+            resolution_minutes INTEGER,
+            tags TEXT
+          );
+        `);
+        await db.execute(sql`
+          CREATE TABLE IF NOT EXISTS activities (
+            id TEXT PRIMARY KEY,
+            ticket_id TEXT NOT NULL REFERENCES tickets(id) ON DELETE CASCADE,
+            actor_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            actor_name TEXT NOT NULL,
+            actor_role TEXT NOT NULL,
+            type TEXT NOT NULL,
+            message TEXT NOT NULL,
+            note_text TEXT,
+            created_at TEXT NOT NULL
+          );
+        `);
+        await db.execute(sql`
+          CREATE TABLE IF NOT EXISTS conversations (
+            id TEXT PRIMARY KEY,
+            ticket_id TEXT REFERENCES tickets(id) ON DELETE SET NULL,
+            customer_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            customer_name TEXT NOT NULL,
+            customer_avatar TEXT,
+            agent_id TEXT REFERENCES users(id) ON DELETE SET NULL,
+            agent_name TEXT,
+            status TEXT NOT NULL,
+            last_message_text TEXT,
+            last_message_time TEXT,
+            unread_count INTEGER DEFAULT 0,
+            created_at TEXT NOT NULL,
+            updated_at TEXT
+          );
+        `);
+        await db.execute(sql`
+          CREATE TABLE IF NOT EXISTS messages (
+            id TEXT PRIMARY KEY,
+            conversation_id TEXT NOT NULL REFERENCES conversations(id) ON DELETE CASCADE,
+            sender_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            sender_name TEXT NOT NULL,
+            sender_role TEXT NOT NULL,
+            text TEXT NOT NULL,
+            sentiment TEXT,
+            is_read BOOLEAN DEFAULT FALSE,
+            is_bot BOOLEAN DEFAULT FALSE,
+            created_at TEXT NOT NULL
+          );
+        `);
+        await db.execute(sql`
+          CREATE TABLE IF NOT EXISTS notifications (
+            id TEXT PRIMARY KEY,
+            user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            ticket_id TEXT REFERENCES tickets(id) ON DELETE CASCADE,
+            conversation_id TEXT REFERENCES conversations(id) ON DELETE CASCADE,
+            text TEXT NOT NULL,
+            type TEXT NOT NULL,
+            is_read BOOLEAN DEFAULT FALSE,
+            created_at TEXT NOT NULL
+          );
+        `);
+        console.log('PostgreSQL database schema auto-provisioned successfully!');
+      } catch (err) {
+        console.warn('PostgreSQL table auto-creation schema assertion warning or error details:', err);
+      }
+
       // Load all records from Postgres
       const pUsers = await db.select().from(schema.users);
       const pPasswords = await db.select().from(schema.passwords);

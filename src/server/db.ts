@@ -45,8 +45,8 @@ class DiskDatabase {
   // Asynchronous initializer connected to Cloud SQL (Called during boot in server.ts)
   public async init() {
     try {
-      if (!process.env.DATABASE_URL && !process.env.SQL_HOST) {
-        console.log('No DATABASE_URL or SQL_HOST supplied in environment. Skipping PostgreSQL layer and falling back directly to local JSON database storage.');
+      if (!process.env.DATABASE_URL && (!process.env.SQL_HOST || process.env.SQL_HOST === 'base')) {
+        console.log('No DATABASE_URL or active external SQL_HOST supplied in environment. Skipping PostgreSQL layer and falling back directly to local JSON database storage.');
         this.load();
         if (this.db.users.length === 0) {
           this.seed();

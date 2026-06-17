@@ -1,0 +1,6 @@
+{
+  "name": "Live Support Workspace",
+  "description": "A production-grade, real-time customer support platform with live messaging channels, Gemini AI-powered InterBot helpers, role-based interfaces, and SLA throughput telemetry charts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

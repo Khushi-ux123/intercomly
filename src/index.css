@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+@theme {
+  --color-slate-850: #151f32;
+  --shadow-3d-lg: 0 25px 50px -12px rgba(99, 102, 241, 0.25), 0 12px 24px -10px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  --shadow-3d-sm: 0 10px 20px -8px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  --shadow-3d-glow: 0 0 30px rgba(99, 102, 241, 0.4), 0 0 60px rgba(14, 165, 233, 0.2);
+  --shadow-3d-neon-pink: 0 0 25px rgba(236, 72, 153, 0.4), 0 0 50px rgba(236, 72, 153, 0.15);
+  --shadow-3d-neumorph: 8px 8px 16px rgba(0, 0, 0, 0.25), -8px -8px 16px rgba(255, 255, 255, 0.03);
+}
+
+@variant dark (&:where(.dark, .dark *));
+
+/* Awwwards-style 3D Depth Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-2000 {
+  perspective: 2000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* Layered depth values */
+.translate-z-10 {
+  transform: translateZ(10px);
+}
+
+.translate-z-20 {
+  transform: translateZ(20px);
+}
+
+.translate-z-30 {
+  transform: translateZ(30px);
+}
+
+.translate-z-50 {
+  transform: translateZ(50px);
+}
+
+/* 3D Wireframe Grid (Sci-fi Synthwave ground) of premium awwwards designs */
+.wireframe-grid-3d {
+  background-image: 
+    linear-gradient(to bottom, rgba(99, 102, 241, 0.08) 1px, transparent 1px),
+    linear-gradient(to right, rgba(99, 102, 241, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center top;
+  transform: perspective(600px) rotateX(72deg) translateY(-80px) translateZ(-40px);
+  transform-origin: top center;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+}
+
+.wireframe-grid-3d-sky {
+  background-image: 
+    linear-gradient(to bottom, rgba(14, 165, 233, 0.05) 1px, transparent 1px),
+    linear-gradient(to right, rgba(14, 165, 233, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  transform: perspective(500px) rotateX(-50deg) translateY(-20px) translateZ(-60px);
+  transform-origin: bottom center;
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 90%);
+}
+
+/* Floating animation for 3D physics */
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(2deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+.animate-3d-float-slow {
+  animation: float 7s ease-in-out infinite;
+}
+
+.animate-3d-float-fast {
+  animation: float 4.5s ease-in-out infinite;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 25s linear infinite;
+}
+
+/* Interactive tilt-effects using custom variables */
+.interactive-tilt-card {
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  transform-style: preserve-3d;
+}
+
+.interactive-tilt-card:hover {
+  transform: translateY(-8px) rotateX(10deg) rotateY(-8deg) scale(1.02);
+  box-shadow: 
+    0 30px 60px -15px rgba(99, 102, 241, 0.3), 
+    0 15px 30px -10px rgba(0, 0, 0, 0.25);
+}
+
+/* Glassmorphism reflecting realistic refractive lighting index */
+.glass-panel-3d {
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  background-color: rgba(17, 24, 39, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-light-3d {
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  background-color: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(99, 102, 241, 0.08);
+}

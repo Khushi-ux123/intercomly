@@ -6,6 +6,18 @@ const { Pool } = pg;
 
 // Function to create a new connection pool
 export const createPool = () => {
+  if (process.env.DATABASE_URL) {
+    console.log('PostgreSQL database pool created using DATABASE_URL (connectionString)...');
+    return new Pool({
+      connectionString: process.env.DATABASE_URL,
+      connectionTimeoutMillis: 15000,
+      ssl: {
+        rejectUnauthorized: false, // Required for secure serverless/hosted databases (Railway, Neon, Supabase)
+      },
+    });
+  }
+  
+  console.log('PostgreSQL database pool created using individual SQL_* variables...');
   return new Pool({
     host: process.env.SQL_HOST,
     user: process.env.SQL_USER,
